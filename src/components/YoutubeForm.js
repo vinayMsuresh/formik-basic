@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Stack, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -7,9 +7,16 @@ const initialValues = {
     email:'',
     channel:''
 };
+const updatedValues = {
+    name:'Vinay',
+    email:'msv@gmail.com',
+    channel:'VSH'
+};
 
-const onSubmit = values => {
+const onSubmit = (values, submitProps) => {
     console.log('Form values', values);
+    submitProps.setSubmitting(false);
+    submitProps.resetForm();
 };
 
 // const validate = values => {
@@ -39,10 +46,13 @@ const validationSchema = Yup.object({
 });
 
 function YoutubeForm() {
+    const [formValues, setFormValues] = useState(null);
     const submit = useFormik({
-        initialValues,
+        initialValues: formValues || initialValues,
         onSubmit,
         validationSchema, 
+        enableReinitialize: true
+        // validateOnMount: true,
         // validate
     });
   return (
@@ -76,9 +86,11 @@ function YoutubeForm() {
                 {...submit.getFieldProps('channel')}
             /> 
 
-            <Button variant='contained' type='submit' fullWidth={false}>Submit</Button>
-            <Button variant='contained' onClick={()=>submit.validateField('channel')}>Validate </Button>
-            <Button variant='contained' onClick={()=>submit.setFieldTouched('channel')}>Visit</Button>
+            <Button variant='contained' type='submit' disabled={!submit.isValid || submit.isSubmitting}>Submit</Button>
+            <Button variant='contained' onClick={()=>setFormValues(updatedValues)}>load saved Data </Button>
+            <Button variant='contained' onClick={()=>submit.resetForm()}>load saved Data </Button>
+            {/* <Button variant='contained' onClick={()=>submit.validateField('channel')}>Validate </Button>
+            <Button variant='contained' onClick={()=>submit.setFieldTouched('channel')}>Visit</Button> */}
         </Stack>
     </form>
   )
