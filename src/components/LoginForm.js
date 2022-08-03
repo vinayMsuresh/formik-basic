@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
 import FormikControl from './FormikControl';
 import React from 'react';
@@ -29,14 +29,14 @@ function LoginForm() {
         { formik => {
             return <Form>
                 <FormikControl
-                    control='input'
+                    control='chakraInput'
                     label='Email'
                     name='email'
                     type='email'
                 />
 
                 <FormikControl
-                    control='input'
+                    control='chakraInput'
                     label='Password'
                     name='password'
                     type='password'

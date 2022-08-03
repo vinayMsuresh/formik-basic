@@ -7,7 +7,7 @@ function SelectInp(props) {
   return (
     <Grid item sm={6} m={3}>
         <FormControl sx={{width: '15%'}}>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-label">{label}</InputLabel>
         <Field name={name} label={label} as={Select} {...rest}>
             { options.map(option=>(
                 <MenuItem key={option.value} value={option.value}>{option.key}</MenuItem>
